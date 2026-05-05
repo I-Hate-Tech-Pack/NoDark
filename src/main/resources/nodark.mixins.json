@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "cn.hwoxu.nodark.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "BlindEffectMixin",
+    "DarkEffectMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}
