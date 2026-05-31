@@ -200,9 +200,10 @@ jobs:
 
 ```yaml
 - name: Setup Gradle Wrapper
-  if: !exists('gradlew')
   run: |
-    gradle wrapper --gradle-version 8.11.1
+    if [ ! -f "gradlew" ]; then
+      gradle wrapper --gradle-version 8.11.1
+    fi
 ```
 
 > **注意**：实际使用时需确保 `gradle` 命令在 PATH 中可用。
