@@ -185,3 +185,24 @@ jobs:
 
 - **Repository name 不合法**：Maven 仓库名只能包含 `A-Za-z0-9_\-.`，不能用单引号或空格
 - **sourcesJar 任务不存在**：`sourcesJar` 不会自动创建，必须用 `tasks.register('sourcesJar', Jar)` 显式定义
+
+### Workflow 检测与修复
+
+在 workflow 开始前，应自动检测并修复项目配置：
+
+| 检测项 | 修复操作 |
+|--------|----------|
+| `gradlew` 不存在 | 使用 `gradle wrapper --gradle-version <version>` 生成 |
+| `sourcesJar` 任务未定义 | 在 `build.gradle` 中添加 `tasks.register('sourcesJar', Jar) {...}` |
+| `maven-publish` 配置缺失 | 在 `build.gradle` 中添加 `publishing {...}` 配置 |
+
+#### Gradle Wrapper 检测规则
+
+```yaml
+- name: Setup Gradle Wrapper
+  if: !exists('gradlew')
+  run: |
+    gradle wrapper --gradle-version 8.11.1
+```
+
+> **注意**：实际使用时需确保 `gradle` 命令在 PATH 中可用。
